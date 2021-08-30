@@ -189,7 +189,8 @@ import UIKit
         // Image View
         if let image = self.image {
             let imageView = UIImageView(image: image)
-            imageView.contentMode = .scaleAspectFit
+            imageView.contentMode = appearance.imageViewContentMode
+            imageView.layer.cornerRadius = appearance.imageViewCornerRadius
             imageView.tintColor = appearance.imageViewTintColor
             
             if let accessibilityLabel = imageAccessibilityLabel {

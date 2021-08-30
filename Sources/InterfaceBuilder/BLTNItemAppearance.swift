@@ -49,6 +49,10 @@ import UIKit
     /// The border width to apply to the alternative button.
     @objc public var alternativeButtonBorderWidth: CGFloat = 1.0
 
+    @objc public var imageViewCornerRadius: CGFloat = 0
+    
+    @objc public var imageViewContentMode:  UIView.ContentMode = .scaleAspectFit
+    
     /// The tint color to apply to the imageView (if image rendered in template mode, default `.link` on iOS 13 and `.blue` on older systems).
     @objc public var imageViewTintColor: UIColor = {
         if #available(iOS 13.0, *) {
