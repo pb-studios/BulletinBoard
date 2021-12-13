@@ -70,13 +70,13 @@ class BulletinCloseButton: UIControl {
 
     // MARK: - Customization
 
-    func updateColors(isDarkBackground: Bool) {
-        if isDarkBackground {
-            backgroundContainer.backgroundColor = #colorLiteral(red: 0.9529411765, green: 0.9607843137, blue: 0.9607843137, alpha: 1)
-            closeGlyph.tintColor = #colorLiteral(red: 0.3764705882, green: 0.3921568627, blue: 0.431372549, alpha: 1)
-        } else {
+    func updateColors(isDark: Bool = false) {
+        if isDark {
             backgroundContainer.backgroundColor = #colorLiteral(red: 0.3764705882, green: 0.3921568627, blue: 0.431372549, alpha: 1)
             closeGlyph.tintColor = #colorLiteral(red: 0.9529411765, green: 0.9607843137, blue: 0.9607843137, alpha: 1)
+        } else {
+            backgroundContainer.backgroundColor = #colorLiteral(red: 0.9529411765, green: 0.9607843137, blue: 0.9607843137, alpha: 1)
+            closeGlyph.tintColor = #colorLiteral(red: 0.6, green: 0.6, blue: 0.6, alpha: 1)
         }
     }
 

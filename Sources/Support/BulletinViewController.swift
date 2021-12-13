@@ -209,7 +209,7 @@ extension BulletinViewController {
 
         contentView.backgroundColor = manager.backgroundColor
         contentView.cornerRadius = CGFloat((manager.cardCornerRadius ?? 12).doubleValue)
-        closeButton.updateColors(isDarkBackground: manager.backgroundColor.needsDarkText == false)
+        closeButton.updateColors()
 
         let cardPadding = manager.edgeSpacing.rawValue
 
