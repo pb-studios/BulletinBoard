@@ -11,7 +11,6 @@ import UIKit
  */
 
 @objc open class BLTNInterfaceBuilder: NSObject {
-
     /// The appearance to use to generate the items.
     @objc public let appearance: BLTNItemAppearance
 
@@ -26,9 +25,8 @@ import UIKit
 
     @objc(makeTitleLabelNextToCloseButton:)
     open func makeTitleLabel(isNextToCloseButton: Bool) -> BLTNTitleLabelContainer {
-
         let titleLabel = UILabel()
-        titleLabel.textAlignment = .center
+        titleLabel.textAlignment = appearance.titleTextAlignment
         titleLabel.textColor = appearance.titleTextColor
         titleLabel.accessibilityTraits.insert(.header)
         titleLabel.numberOfLines = 2
@@ -36,7 +34,8 @@ import UIKit
         titleLabel.lineBreakMode = .byWordWrapping
 
         titleLabel.font = appearance.makeTitleFont()
-        let inset: CGFloat = isNextToCloseButton ? 12 + 30 : 0
+//        let inset: CGFloat = isNextToCloseButton ? 12 + 30 : 0
+        let inset = 0
 
         return BLTNTitleLabelContainer(label: titleLabel, horizontalInset: inset)
     }
@@ -46,15 +45,13 @@ import UIKit
      */
 
     @objc open func makeDescriptionLabel() -> UILabel {
-
         let descriptionLabel = UILabel()
-        descriptionLabel.textAlignment = .center
+        descriptionLabel.textAlignment = appearance.descriptionTextAlignment
         descriptionLabel.textColor = appearance.descriptionTextColor
         descriptionLabel.numberOfLines = 0
         descriptionLabel.font = appearance.makeDescriptionFont()
 
         return descriptionLabel
-
     }
 
     /**
@@ -68,7 +65,6 @@ import UIKit
     @objc open func makeTextField(placeholder: String? = nil,
                                   returnKey: UIReturnKeyType = .default,
                                   delegate: UITextFieldDelegate? = nil) -> UITextField {
-
         let textField = UITextField()
         textField.delegate = delegate
         textField.textAlignment = .left
@@ -77,7 +73,6 @@ import UIKit
         textField.returnKeyType = returnKey
 
         return textField
-
     }
 
     /**
@@ -90,21 +85,20 @@ import UIKit
      */
 
     @objc open func makeActionButton(title: String) -> BLTNHighlightButtonWrapper {
-
         let actionButton = HighlightButton()
         actionButton.layer.cornerRadius = appearance.actionButtonCornerRadius
-        
+
         if #available(iOS 13, *) {
             actionButton.layer.cornerCurve = .continuous
         }
-        
+
         if let actionButtonImage = appearance.actionButtonImage {
             actionButton.setBackgroundImage(actionButtonImage, for: .normal)
-            
+
         } else {
             actionButton.setBackgroundColor(appearance.actionButtonColor, forState: .normal)
         }
-        
+
         actionButton.setTitleColor(appearance.actionButtonTitleColor, for: .normal)
         actionButton.contentHorizontalAlignment = .center
 
@@ -114,8 +108,8 @@ import UIKit
         actionButton.clipsToBounds = true
 
         if let color = appearance.actionButtonBorderColor {
-          actionButton.layer.borderColor = color.cgColor
-          actionButton.layer.borderWidth = appearance.actionButtonBorderWidth
+            actionButton.layer.borderColor = color.cgColor
+            actionButton.layer.borderWidth = appearance.actionButtonBorderWidth
         }
 
         let wrapper = BLTNHighlightButtonWrapper(button: actionButton)
@@ -126,7 +120,6 @@ import UIKit
         heightConstraint.isActive = true
 
         return wrapper
-
     }
 
     /**
@@ -138,26 +131,24 @@ import UIKit
      */
 
     @objc open func makeAlternativeButton(title: String) -> UIButton {
-
         let alternativeButton = UIButton()
         alternativeButton.layer.cornerRadius = appearance.alternativeButtonCornerRadius
-        
+
         if #available(iOS 13, *) {
             alternativeButton.layer.cornerCurve = .continuous
         }
-        
+
         alternativeButton.setTitle(title, for: .normal)
         alternativeButton.setTitleColor(appearance.alternativeButtonTitleColor, for: .normal)
         alternativeButton.titleLabel?.font = appearance.makeAlternativeButtonFont()
 
         if let color = appearance.alternativeButtonBorderColor {
-          alternativeButton.clipsToBounds = true
-          alternativeButton.layer.borderColor = color.cgColor
-          alternativeButton.layer.borderWidth = appearance.alternativeButtonBorderWidth
+            alternativeButton.clipsToBounds = true
+            alternativeButton.layer.borderColor = color.cgColor
+            alternativeButton.layer.borderWidth = appearance.alternativeButtonBorderWidth
         }
 
         return alternativeButton
-
     }
 
     /**
@@ -167,7 +158,6 @@ import UIKit
      */
 
     @objc open func makeGroupStack(spacing: CGFloat = 10) -> UIStackView {
-
         let buttonsStack = UIStackView()
         buttonsStack.axis = .vertical
         buttonsStack.alignment = .fill
@@ -175,7 +165,6 @@ import UIKit
         buttonsStack.spacing = spacing
 
         return buttonsStack
-
     }
 
     /**
@@ -194,7 +183,6 @@ import UIKit
      */
 
     @objc open func wrapView(_ view: UIView, width: NSNumber?, height: NSNumber?, position: BLTNViewPosition) -> BLTNContainerView {
-
         let container = BLTNContainerView()
 
         container.contentSize = CGSize(width: width.flatMap(CGFloat.init) ?? UIView.noIntrinsicMetric,
@@ -213,11 +201,8 @@ import UIKit
                 child.topAnchor.constraint(equalTo: parent.topAnchor).isActive = true
                 child.bottomAnchor.constraint(equalTo: parent.bottomAnchor).isActive = true
             }
-
         }
 
         return container
-
     }
-
 }

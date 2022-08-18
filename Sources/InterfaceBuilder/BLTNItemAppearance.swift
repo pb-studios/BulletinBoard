@@ -21,7 +21,7 @@ import UIKit
            return #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
         }
     }()
-    
+
     /// The button image to apply to the action button
     @objc public var actionButtonImage: UIImage?
 
@@ -29,7 +29,7 @@ import UIKit
     @objc public var actionButtonTitleColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
 
     /// The border color to apply to action button.
-    @objc public var actionButtonBorderColor: UIColor? = nil
+    @objc public var actionButtonBorderColor: UIColor?
 
     /// The border width to apply to action button.
     @objc public var actionButtonBorderWidth: CGFloat = 1.0
@@ -44,15 +44,15 @@ import UIKit
     }()
 
     /// The border color to apply to the alternative button.
-    @objc public var alternativeButtonBorderColor: UIColor? = nil
+    @objc public var alternativeButtonBorderColor: UIColor?
 
     /// The border width to apply to the alternative button.
     @objc public var alternativeButtonBorderWidth: CGFloat = 1.0
 
     @objc public var imageViewCornerRadius: CGFloat = 0
-    
-    @objc public var imageViewContentMode:  UIView.ContentMode = .scaleAspectFit
-    
+
+    @objc public var imageViewContentMode: UIView.ContentMode = .scaleAspectFit
+
     /// The tint color to apply to the imageView (if image rendered in template mode, default `.link` on iOS 13 and `.blue` on older systems).
     @objc public var imageViewTintColor: UIColor = {
         if #available(iOS 13.0, *) {
@@ -107,7 +107,6 @@ import UIKit
 
     @objc public var shouldUseCompactDescriptionText: Bool = false
 
-
     // MARK: - Font Constants
 
     /// The font size of title elements (default 30).
@@ -124,6 +123,14 @@ import UIKit
 
     /// The font size of alternative buttons (default 15).
     @objc public var alternativeButtonFontSize: CGFloat = 15
+
+    // MARK: - Text Alignments
+
+    /// The font size of title elements (default 30).
+    @objc public var titleTextAlignment: NSTextAlignment = .center
+
+    /// The font size of description labels (default 20).
+    @objc public var descriptionTextAlignment: NSTextAlignment = .center
 
 }
 
