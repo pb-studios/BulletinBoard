@@ -411,12 +411,6 @@ extension BulletinViewController {
     }
 
     fileprivate func updateCornerRadius() {
-
-        if manager?.edgeSpacing.rawValue == 0 {
-            contentView.cornerRadius = 0
-            return
-        }
-
         let defaultRadius: NSNumber = screenHasRoundedCorners ? 36 : 12
         contentView.cornerRadius = CGFloat((manager?.cardCornerRadius ?? defaultRadius).doubleValue)
 
