@@ -104,12 +104,12 @@ import UIKit
      */
 
     @objc public var allowsSwipeInteraction: Bool = true
-    
+
     /**
      * Tells us if a bulletin is currently being shown. Defaults to false
      */
 
-    @objc public var isShowingBulletin: Bool { 
+    @objc public var isShowingBulletin: Bool {
         return bulletinController?.presentingViewController != nil
     }
 
@@ -182,7 +182,7 @@ extension BLTNItemManager {
         bulletinController.loadBackgroundView()
         bulletinController.setNeedsStatusBarAppearanceUpdate()
         bulletinController.setNeedsUpdateOfHomeIndicatorAutoHidden()
-        
+
         isPrepared = true
         isPreparing = true
         shouldDisplayActivityIndicator = rootItem.shouldStartWithActivityIndicator
@@ -349,36 +349,36 @@ extension BLTNItemManager {
      * - parameter item: The item to seek.
      * - parameter orDismiss: If true, dismiss bullein if not found. Otherwise popToRootItem()
      */
-    
+
     @objc(popToItem:orDismiss:)
     public func popTo(item: BLTNItem, orDismiss: Bool) {
-        
+
         assertIsPrepared()
         assertIsMainThread()
-        
-        for index in 0..<itemsStack.count  {
-            
+
+        for index in 0..<itemsStack.count {
+
             if itemsStack[index] === item {
-                
+
                 self.currentItem = itemsStack[index]
                 shouldDisplayActivityIndicator = currentItem.shouldStartWithActivityIndicator
                 refreshCurrentItemInterface()
-                
+
                 for removeIndex in (index+1..<itemsStack.count).reversed() {
                     let removeItem = itemsStack.remove(at: removeIndex)
-                    tearDownItemsChain (startingAt: removeItem)
+                    tearDownItemsChain(startingAt: removeItem)
                 }
                 return
             }
         }
-        
+
         if item !== rootItem, orDismiss {
             dismissBulletin(animated: true)
         } else {
             popToRootItem()
         }
     }
-    
+
     /**
      * Removes all the items from the stack and displays the root item.
      */
@@ -456,7 +456,7 @@ extension BLTNItemManager {
         presentingVC.present(bulletinController, animated: animated, completion: completion)
 
     }
-    
+
     /**
      * Presents the bulletin on top of your application window.
      *
@@ -464,7 +464,7 @@ extension BLTNItemManager {
      * - parameter animated: Whether to animate presentation. Defaults to `true`.
      * - parameter completion: An optional block to execute after presentation. Default to `nil`.
      */
-    
+
     @objc(showBulletinInApplication:animated:completion:)
     public func showBulletin(in application: UIApplication,
                              animated: Bool = true,
@@ -472,18 +472,18 @@ extension BLTNItemManager {
         assert(presentingWindow == nil, "Attempt to present a Bulletin on top of another Bulletin window. Make sure to dismiss any existing bulletin before calling this method.")
         presentingWindow = UIWindow(frame: UIScreen.main.bounds)
         presentingWindow?.rootViewController = UIViewController()
-        
+
         // set alert window above current top window
         if let topWindow = application.windows.last {
             presentingWindow?.windowLevel = topWindow.windowLevel + 1
         }
-        
+
         presentingWindow?.makeKeyAndVisible()
-        
+
         if let vc = presentingWindow?.rootViewController {
             self.showBulletin(above: vc, animated: animated, completion: completion)
         }
-        
+
     }
 
     /**
@@ -524,7 +524,7 @@ extension BLTNItemManager {
             bulletinController.contentStackView.removeArrangedSubview(arrangedSubview)
             arrangedSubview.removeFromSuperview()
         }
-        
+
         presentingWindow?.isHidden = true
         presentingWindow = nil
 
@@ -626,7 +626,7 @@ extension BLTNItemManager {
             }
 
         }
-        
+
         displayNewItemsAnimationPhase.completionHandler = {
             self.currentItem.willDisplay()
         }

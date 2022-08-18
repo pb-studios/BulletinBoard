@@ -35,13 +35,13 @@ class BulletinCloseButton: UIControl {
 
         isAccessibilityElement = true
         accessibilityLabel = Bundle.UIKitCore.localizedString(forKey: "Close", value: "Close", table: nil)
-    
+
         // Layout
         addSubview(backgroundContainer)
         addSubview(closeGlyph)
 
         backgroundContainer.layer.cornerRadius = 14
-        
+
         closeGlyph.image = UIImage.closeButton.withRenderingMode(.alwaysTemplate)
         closeGlyph.contentMode = .scaleAspectFit
         closeGlyph.clipsToBounds = true
@@ -86,7 +86,7 @@ class BulletinCloseButton: UIControl {
         addTarget(self, action: #selector(highlight), for: [.touchUpInside, .touchDragEnter])
         addTarget(self, action: #selector(unhighlight), for: [.touchUpInside, .touchDragExit])
     }
-    
+
     @objc private func highlight() {
         let animations = {
             self.alpha = 0.5
@@ -135,17 +135,17 @@ extension UIImage {
         shape.addLine(to: CGPoint(x: 13.15, y: 18.01))
         shape.addLine(to: CGPoint(x: 0.93, y: 30.21))
         shape.close()
-        
+
         let size = CGSize(width: 36, height: 36)
         UIGraphicsBeginImageContext(size)
-        
+
         defer {
             UIGraphicsEndImageContext()
         }
-        
+
         UIColor.black.setFill()
         shape.fill()
-        
+
         return UIGraphicsGetImageFromCurrentImageContext()!
     }
 }

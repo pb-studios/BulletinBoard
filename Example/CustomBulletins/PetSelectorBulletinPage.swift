@@ -17,14 +17,14 @@ import BLTNBoard
     private var catButtonContainer: UIButton!
     private var dogButtonContainer: UIButton!
     private var selectionFeedbackGenerator = SelectionFeedbackGenerator()
-    
+
     let completionHandler: (BLTNItem) -> Void
 
     @objc public init(completionHandler: @escaping (BLTNItem) -> Void) {
         self.completionHandler = completionHandler
         super.init(title: "Choose your Favorite")
     }
-    
+
     // MARK: - BLTNItem
 
     /**
@@ -45,9 +45,9 @@ import BLTNBoard
      * We need to return the view in the order we want them displayed. You should use a
      * `BulletinInterfaceFactory` to generate standard views, such as title labels and buttons.
      */
-    
+
     public override func makeViewsUnderDescription(with interfaceBuilder: BLTNInterfaceBuilder) -> [UIView]? {
-        
+
         let favoriteTabIndex = UserDefaults.standard.favoriteTabIndex
 
         // Pets Stack

@@ -12,8 +12,8 @@ extension BLTNItemManager {
     public func displayActivityIndicator() {
         displayActivityIndicator(color: nil)
     }
-    
-    public func present(_ viewController: UIViewController, animated: Bool) -> Void {
+
+    public func present(_ viewController: UIViewController, animated: Bool) {
         present(viewController, animated: animated, completion: nil)
     }
 }

@@ -5,7 +5,7 @@ import UIKit
  */
 
 @objc open class BLTNItem: NSObject {
-    
+
     // MARK: - Configuration
 
     /**
@@ -70,9 +70,9 @@ import UIKit
      */
 
     @objc(nextItem) open var next: BLTNItem?
-    
+
     // MARK: - Event Handlers
-    
+
     /**
      * The block of code to execute when the bulletin item is presented. This is called after the
      * bulletin is moved onto the view.
@@ -124,11 +124,11 @@ import UIKit
     open func tearDown() {
         // no-op
     }
-        
+
     /**
     * Called by the manager when bulletin item is about to be pushed onto the view.
     */
-        
+
     open func willDisplay() {
         // no-op
     }

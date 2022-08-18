@@ -16,7 +16,7 @@ import BLTNBoard
     /**
      * Display the date picker under the description label.
      */
-    
+
     override public func makeViewsUnderDescription(with interfaceBuilder: BLTNInterfaceBuilder) -> [UIView]? {
         datePicker.datePickerMode = .date
         return [datePicker]

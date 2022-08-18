@@ -575,7 +575,7 @@ extension BulletinViewController {
             self.contentBottomConstraint.constant = bottomSpacing
             self.centerYConstraint.constant = -(keyboardFrameFinal.size.height + 12) / 2
             self.contentView.superview?.layoutIfNeeded()
-        
+
         }, completion: nil)
 
     }

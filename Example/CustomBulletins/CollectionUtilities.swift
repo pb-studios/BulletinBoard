@@ -24,7 +24,6 @@ extension UserDefaults {
         set { set(newValue, forKey: "BLTNBoard.FavoriteTabIndex") }
     }
 }
-    
 
 /**
  * A data provider for a collection view.

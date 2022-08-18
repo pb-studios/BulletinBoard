@@ -21,7 +21,7 @@ import UIKit
 */
 
 @objc open class BLTNPageItem: BLTNActionItem {
-    
+
     // MARK: - Page Contents
 
     /// The title of the page.
@@ -81,18 +81,17 @@ import UIKit
     @objc private(set) open var imageView: UIImageView?
 
     // MARK: - Initialization
-    
+
     /**
      * Creates a bulletin page with the specified title.
      * - parameter title: The title of the page.
      */
-    
+
     @objc public init(title: String) {
         self.title = title
         super.init()
     }
 
-    
     // MARK: - Customization
 
     /**
@@ -164,47 +163,47 @@ import UIKit
     }
 
     // MARK: - Overrides
-    
+
     open override func makeContentViews(with interfaceBuilder: BLTNInterfaceBuilder) -> [UIView] {
         var contentViews: [UIView] = []
-        
+
         func insertComplementaryViews(_ builder: (BLTNInterfaceBuilder) -> [UIView]?) {
             if let complementaryViews = builder(interfaceBuilder) {
                 contentViews += complementaryViews
             }
         }
-        
+
         // Headers
         insertComplementaryViews(makeHeaderViews)
-        
+
         // Title
         let isNextToCloseButton = requiresCloseButton
         let titleView = interfaceBuilder.makeTitleLabel(isNextToCloseButton: isNextToCloseButton)
         titleView.label.text = title
-        
+
         self.titleLabel = titleView
         contentViews.append(titleView)
         insertComplementaryViews(makeViewsUnderTitle)
-        
+
         // Image View
         if let image = self.image {
             let imageView = UIImageView(image: image)
             imageView.contentMode = appearance.imageViewContentMode
             imageView.layer.cornerRadius = appearance.imageViewCornerRadius
             imageView.tintColor = appearance.imageViewTintColor
-            
+
             if let accessibilityLabel = imageAccessibilityLabel {
                 imageView.isAccessibilityElement = true
                 imageView.accessibilityLabel = accessibilityLabel
             } else {
                 imageView.isAccessibilityElement = false
             }
-            
+
             self.imageView = imageView
             contentViews.append(imageView)
             insertComplementaryViews(makeViewsUnderImage)
         }
-        
+
         // Description Label
         if let attributedDescription = attributedDescriptionText {
             let label = interfaceBuilder.makeDescriptionLabel()
@@ -219,7 +218,7 @@ import UIKit
             self.descriptionLabel = label
             insertComplementaryViews(makeViewsUnderDescription)
         }
-        
+
         return contentViews
     }
 }

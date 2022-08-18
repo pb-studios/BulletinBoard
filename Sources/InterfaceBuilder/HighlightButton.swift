@@ -22,12 +22,12 @@ class HighlightButton: UIButton {
         super.init(coder: aDecoder)
         configureHighlighting()
     }
-    
+
     private func configureHighlighting() {
         addTarget(self, action: #selector(highlight), for: [.touchUpInside, .touchDragEnter])
         addTarget(self, action: #selector(unhighlight), for: [.touchUpInside, .touchDragExit])
     }
-    
+
     @objc private func highlight() {
         let animations = {
             self.alpha = 0.5
@@ -35,7 +35,7 @@ class HighlightButton: UIButton {
 
         UIView.transition(with: self, duration: 0.1, animations: animations)
     }
-    
+
     @objc private func unhighlight() {
         let animations = {
             self.alpha = 1

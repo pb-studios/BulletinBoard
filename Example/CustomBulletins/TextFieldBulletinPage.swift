@@ -17,7 +17,7 @@ import BLTNBoard
 
     @objc public var textField: UITextField!
 
-    @objc public var textInputHandler: ((TextFieldBulletinPage, String?) -> Void)? = nil
+    @objc public var textInputHandler: ((TextFieldBulletinPage, String?) -> Void)?
 
     override public func makeViewsUnderDescription(with interfaceBuilder: BLTNInterfaceBuilder) -> [UIView]? {
         textField = interfaceBuilder.makeTextField(placeholder: "First and Last Name", returnKey: .done, delegate: self)

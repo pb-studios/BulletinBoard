@@ -207,7 +207,7 @@ enum BulletinDataSource {
             let completionPage = BulletinDataSource.makeCompletionPage()
             currentItem.manager?.push(item: completionPage)
         })
-        
+
         page.isDismissable = false
         page.descriptionText = "Your favorite pets will appear when you open the app."
         page.actionButtonTitle = "Select"

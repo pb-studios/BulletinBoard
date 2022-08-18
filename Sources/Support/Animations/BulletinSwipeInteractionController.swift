@@ -57,7 +57,6 @@ class BulletinSwipeInteractionController: UIPercentDrivenInteractiveTransition, 
 
     }
 
-
     // MARK: - Gesture Recognizer
 
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
