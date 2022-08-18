@@ -35,7 +35,7 @@ import UIKit
 
         titleLabel.font = appearance.makeTitleFont()
 //        let inset: CGFloat = isNextToCloseButton ? 12 + 30 : 0
-        let inset = 0
+        let inset: CGFloat = 0
 
         return BLTNTitleLabelContainer(label: titleLabel, horizontalInset: inset)
     }
