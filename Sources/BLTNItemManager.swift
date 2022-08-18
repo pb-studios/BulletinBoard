@@ -41,6 +41,10 @@ import UIKit
         }
     }()
 
+    @objc public var contentBottomPadding: CGFloat = 32
+
+    @objc public var contentSpacing: CGFloat = 24
+
     /**
      * The style of the view covering the content. Defaults to `.dimmed`.
      *

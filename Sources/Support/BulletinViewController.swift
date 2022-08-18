@@ -10,7 +10,6 @@ import UIKit
  */
 
 final class BulletinViewController: UIViewController, UIGestureRecognizerDelegate {
-
     /// The object managing the view controller.
     weak var manager: BLTNItemManager?
 
@@ -75,13 +74,11 @@ final class BulletinViewController: UIViewController, UIGestureRecognizerDelegat
     deinit {
         cleanUpKeyboardLogic()
     }
-
 }
 
 // MARK: - Lifecycle
 
 extension BulletinViewController {
-
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setUpLayout(with: traitCollection)
@@ -94,11 +91,9 @@ extension BulletinViewController {
         UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
             self.setNeedsStatusBarAppearanceUpdate()
         })
-
     }
 
     override func loadView() {
-
         super.loadView()
         view.backgroundColor = .clear
 
@@ -189,7 +184,6 @@ extension BulletinViewController {
         setUpKeyboardLogic()
 
         contentView.bringSubviewToFront(closeButton)
-
     }
 
     @available(iOS 11.0, *)
@@ -202,8 +196,7 @@ extension BulletinViewController {
     /// Configure content view with customizations.
 
     fileprivate func configureContentView() {
-
-        guard let manager = self.manager else {
+        guard let manager = manager else {
             fatalError("Trying to set up the content view, but the BulletinViewController is not managed.")
         }
 
@@ -236,35 +229,29 @@ extension BulletinViewController {
 
         contentBottomConstraint.constant = 1000
         contentBottomConstraint.isActive = true
-
     }
 
     // MARK: - Gesture Recognizer
 
-    internal func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         if touch.view?.isDescendant(of: contentView) == true {
             return false
         }
 
         return true
     }
-
 }
 
 // MARK: - Layout
 
 extension BulletinViewController {
-
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
-
         coordinator.animate(alongsideTransition: { _ in
             self.setUpLayout(with: newCollection)
         })
-
     }
 
     fileprivate func setUpLayout(with traitCollection: UITraitCollection) {
-
         switch traitCollection.horizontalSizeClass {
         case .regular:
             leadingConstraint.isActive = false
@@ -297,12 +284,10 @@ extension BulletinViewController {
         default:
             stackLeadingConstraint.constant = 40
             stackTrailingConstraint.constant = -40
-            stackBottomConstraint.constant = -32
+            stackBottomConstraint.constant = -(manager?.contentBottomPadding ?? 32)
             contentTopConstraint.constant = -32
-            contentStackView.spacing = 24
-
+            contentStackView.spacing = manager?.contentSpacing ?? 24
         }
-
     }
 
     // MARK: - Transition Adaptivity
@@ -323,19 +308,16 @@ extension BulletinViewController {
         }
 
         return bottomMargin
-
     }
 
     /// Moves the content view to its final location on the screen. Use during presentation.
     func moveIntoPlace() {
-
         contentBottomConstraint.constant = -bottomMargin()
         centerYConstraint.constant = 0
 
         view.layoutIfNeeded()
         contentView.layoutIfNeeded()
         backgroundView.layoutIfNeeded()
-
     }
 
     // MARK: - Presentation/Dismissal
@@ -343,14 +325,12 @@ extension BulletinViewController {
     /// Dismisses the presnted BulletinViewController if `isDissmisable` is set to `true`.
     @discardableResult
     func dismissIfPossible() -> Bool {
-
         guard isDismissable else {
             return false
         }
 
         manager?.dismissBulletin(animated: true)
         return true
-
     }
 
     // MARK: - Touch Events
@@ -364,13 +344,11 @@ extension BulletinViewController {
     override func accessibilityPerformEscape() -> Bool {
         return dismissIfPossible()
     }
-
 }
 
 // MARK: - System Elements
 
 extension BulletinViewController {
-
     override var preferredStatusBarStyle: UIStatusBarStyle {
         if let manager = manager {
             switch manager.statusBarAppearance {
@@ -398,44 +376,36 @@ extension BulletinViewController {
     override var prefersHomeIndicatorAutoHidden: Bool {
         return manager?.hidesHomeIndicator ?? false
     }
-
 }
 
 // MARK: - Safe Area
 
-extension BulletinViewController {
-
+private extension BulletinViewController {
     @available(iOS 11.0, *)
-    fileprivate var screenHasRoundedCorners: Bool {
+    var screenHasRoundedCorners: Bool {
         return view.safeAreaInsets.bottom > 0
     }
 
-    fileprivate func updateCornerRadius() {
+    func updateCornerRadius() {
         let defaultRadius: NSNumber = screenHasRoundedCorners ? 36 : 12
         contentView.cornerRadius = CGFloat((manager?.cardCornerRadius ?? defaultRadius).doubleValue)
-
     }
-
 }
 
 // MARK: - Background
 
 extension BulletinViewController {
-
     /// Creates a new background view for the bulletin.
     func loadBackgroundView() {
         backgroundView = BulletinBackgroundView(style: manager?.backgroundViewStyle ?? .dimmed)
     }
-
 }
 
 // MARK: - Activity Indicator
 
 extension BulletinViewController {
-
     /// Displays the activity indicator.
     func displayActivityIndicator(color: UIColor) {
-
         activityIndicator.color = color
         activityIndicator.startAnimating()
 
@@ -448,12 +418,10 @@ extension BulletinViewController {
         UIView.animate(withDuration: 0.25, animations: animations) { _ in
             UIAccessibility.post(notification: .screenChanged, argument: self.activityIndicator)
         }
-
     }
 
     /// Hides the activity indicator.
     func hideActivityIndicator() {
-
         activityIndicator.stopAnimating()
         activityIndicator.alpha = 0
 
@@ -465,15 +433,12 @@ extension BulletinViewController {
         }
 
         UIView.animate(withDuration: 0.25, animations: animations)
-
     }
-
 }
 
 // MARK: - Close Button
 
 extension BulletinViewController {
-
     func updateCloseButton(isRequired: Bool) {
         isRequired ? showCloseButton() : hideCloseButton()
     }
@@ -489,13 +454,11 @@ extension BulletinViewController {
     @objc func closeButtonTapped() {
         manager?.dismissBulletin(animated: true)
     }
-
 }
 
 // MARK: - Transitions
 
 extension BulletinViewController: UIViewControllerTransitioningDelegate {
-
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return BulletinPresentationAnimationController(style: manager?.backgroundViewStyle ?? .dimmed)
     }
@@ -506,33 +469,28 @@ extension BulletinViewController: UIViewControllerTransitioningDelegate {
 
     func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning)
         -> UIViewControllerInteractiveTransitioning? {
+        guard manager?.allowsSwipeInteraction == true else {
+            return nil
+        }
 
-            guard manager?.allowsSwipeInteraction == true else {
-                return nil
-            }
-
-            let isEligible = swipeInteractionController.isInteractionInProgress
-            return isEligible ? swipeInteractionController : nil
-
+        let isEligible = swipeInteractionController.isInteractionInProgress
+        return isEligible ? swipeInteractionController : nil
     }
 
     /// Creates a new view swipe interaction controller and wires it to the content view.
     func refreshSwipeInteractionController() {
-
         guard manager?.allowsSwipeInteraction == true else {
             return
         }
 
         swipeInteractionController = BulletinSwipeInteractionController()
         swipeInteractionController.wire(to: self)
-
     }
 
     /// Prepares the view controller for dismissal.
     func prepareForDismissal(displaying snapshot: UIView) {
         activeSnapshotView = snapshot
     }
-
 }
 
 // MARK: - Keyboard
@@ -549,15 +507,14 @@ extension BulletinViewController {
     }
 
     @objc func onKeyboardShow(_ notification: Notification) {
-
         guard manager?.currentItem.shouldRespondToKeyboardChanges == true else {
             return
         }
 
         guard let userInfo = notification.userInfo,
-            let keyboardFrameFinal = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect,
-            let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double,
-            let curveInt = userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as? Int
+              let keyboardFrameFinal = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect,
+              let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double,
+              let curveInt = userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as? Int
         else {
             return
         }
@@ -577,18 +534,16 @@ extension BulletinViewController {
             self.contentView.superview?.layoutIfNeeded()
 
         }, completion: nil)
-
     }
 
     @objc func onKeyboardHide(_ notification: Notification) {
-
         guard manager?.currentItem.shouldRespondToKeyboardChanges == true else {
             return
         }
 
         guard let userInfo = notification.userInfo,
-            let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double,
-            let curveInt = userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as? Int
+              let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double,
+              let curveInt = userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as? Int
         else {
             return
         }
@@ -602,7 +557,6 @@ extension BulletinViewController {
             self.centerYConstraint.constant = 0
             self.contentView.superview?.layoutIfNeeded()
         }, completion: nil)
-
     }
 }
 
