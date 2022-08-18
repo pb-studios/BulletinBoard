@@ -178,7 +178,7 @@ import UIKit
         insertComplementaryViews(makeHeaderViews)
         
         // Title
-        let isNextToCloseButton = isDismissable && requiresCloseButton
+        let isNextToCloseButton = requiresCloseButton
         let titleView = interfaceBuilder.makeTitleLabel(isNextToCloseButton: isNextToCloseButton)
         titleView.label.text = title
         

@@ -546,7 +546,7 @@ extension BLTNItemManager {
 extension BLTNItemManager {
 
     var needsCloseButton: Bool {
-        return currentItem.isDismissable && currentItem.requiresCloseButton
+        return currentItem.requiresCloseButton
     }
 
     /// Refreshes the interface for the current item.
